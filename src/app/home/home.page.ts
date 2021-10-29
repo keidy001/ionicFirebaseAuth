@@ -35,4 +35,7 @@ export class HomePage {
     profile(){
       this.route.navigate(['/profile']);
     }
+    search(){
+      this.route.navigate(['/search']);
+    }
 }
