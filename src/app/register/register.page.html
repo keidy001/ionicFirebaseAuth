@@ -1,33 +1,41 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>register</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Inscription</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form>
     <ion-list>
       <ion-item>
         <ion-label position="stacked">Nom</ion-label>
-        <ion-input required type="text" [(ngModel)]="nom" name="nom"></ion-input>
+        <ion-input required type="text" [(ngModel)]="nom" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Prenom</ion-label>
-        <ion-input required type="text" [(ngModel)]="prenom" name="prenom"></ion-input>
+        <ion-input required type="text" [(ngModel)]="prenom" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Email</ion-label>
-        <ion-input required type="email" [(ngModel)]="email" name="email"></ion-input>
+        <ion-input required type="email" [(ngModel)]="email" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Téléphone</ion-label>
-        <ion-input required type="tel" [(ngModel)]="telephone" name="telephone"></ion-input>
+        <ion-input required type="tel" [(ngModel)]="telephone" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Mot de passe</ion-label>
-        <ion-input required type="password" [(ngModel)]="password" name="password"></ion-input>
+        <ion-input required type="password" [(ngModel)]="password" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Confirmer Mot de passe</ion-label>
+        <ion-input required type="password" [(ngModel)]="confirmPassword" (ionChange)=verifierPassword() ></ion-input>
+        <ion-text color="danger"  *ngIf="password && !samePassword">Mot de passe non identique</ion-text>
+        <ion-text color="success" *ngIf="password && samePassword">Mot de passe identique</ion-text>
       </ion-item>
       <ion-input required type="submit"></ion-input>
     </ion-list>
-  </form>
+  <ion-button [disabled]="!samePassword" expand="block" shape="round" (click)="register()">Valider</ion-button>
 </ion-content>

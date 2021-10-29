@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import 	{User} from '../models/user';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
-import * as firebase from 'firebase/compat';
+//import * as firebase from 'firebase/compat';
+//import firebase from 'firebase/app';
 import '@firebase/auth';
 import '@firebase/database';
 import '@firebase/firestore';
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 import {LoadingController, ToastController} from '@ionic/angular';
 import {Observable, of} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
-import { LoginPageRoutingModule } from '../login/login-routing.module';
+//import { LoginPageRoutingModule } from '../login/login-routing.module';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,7 +32,7 @@ export class AuthService {
   
       if(user)
       {
-      return this.aft.doc<User>(`user/${user.uid}`).valueChanges();
+      return this.aft.doc<User>(`users/${user.uid}`).valueChanges();
       }else{
         return of (null);
       }
@@ -41,21 +42,25 @@ export class AuthService {
 
    }
 
+   getuserList(): Observable<User[]> {
+    return this.aft.collection<User>(`users`).valueChanges();
+  }
+
+
    async signIn(email, password)
 {
 	const loading = await this.LoadingCtrl.create({
-	 message: 'Authenticating...',
+	 message: 'Connxion...',
 	 spinner: 'crescent',
 	 showBackdrop: true
 	});
 
 	loading.present();
-	// this.afauth.setPersistence(firebase.default.auth.Auth.Persistence.LOCAL).then(()=> {
 	this.afauth.signInWithEmailAndPassword(email, password)
 	.then((data)=>{
 		if(!data.user.emailVerified){
 		loading.dismiss();
-		this.toast('Please verify your email adreee', 'warning');
+		this.toast('Veillez verifier votre adresse email', 'warning');
 		this.afauth.signOut(); 
 		}else{
 			loading.dismiss();
@@ -64,7 +69,6 @@ export class AuthService {
 	}).catch(error =>{
     loading.dismiss();
     this.toast(error.message, 'danger');
-  // })
 }).catch(error =>{
   loading.dismiss();
   this.toast(error.message, 'danger');

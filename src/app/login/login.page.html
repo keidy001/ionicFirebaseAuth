@@ -1,9 +1,28 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>login</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-padding">
+  <ion-img class="imgLog" src="../../assets/img/login.png"></ion-img>
+  <br>
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input required type="email" [(ngModel)]="email" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Mot de passe</ion-label>
+      <ion-input required type="password" [(ngModel)]="password" ></ion-input>
+    </ion-item>
+  </ion-list>
+  <br>
+<ion-button  expand="block" shape="round" (click)="login()">Se connecter</ion-button>
+<br>
+<div>
+  <a (click)="forgotPsw()">Mot de passe oublié</a>
+  <br>
+  <p>J'ai pas de compte <a (click)="register()">S'inscrire</a> </p>
+</div>
 </ion-content>

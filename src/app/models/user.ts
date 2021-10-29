@@ -1,11 +1,11 @@
 export interface User {
 
     userId: string;
-    userFirstname: string;
-    userLastname: string;
-    userEmail: string;
-    userPhone: string;
-    userPhoto: string;
+    nom: string;
+    prenom: string;
+    email: string;
+    telephone: string;
+    //userPhoto: string;
     createdAt: number;
 
 }
